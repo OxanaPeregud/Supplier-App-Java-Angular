@@ -7,6 +7,7 @@
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
             </tr>
             </thead>
             <tbody>
@@ -15,7 +16,10 @@
                 <td>{{ supplier.name }}</td>
                 <td><a href="mailto:{{ supplier.email }}">{{ supplier.email }}</a></td>
                 <td>
-                    <button type="button" (click)="delete(supplier.id)">&times;</button>
+                    <button type="button" (click)="deleteSupplier(supplier.id)">&#9746;</button>
+                </td>
+                <td>
+                    <button type="button" (click)="editSupplier(supplier, supplier.id)">&#9745;</button>
                 </td>
             </tr>
             </tbody>

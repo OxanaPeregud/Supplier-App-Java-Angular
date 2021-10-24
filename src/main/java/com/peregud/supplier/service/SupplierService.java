@@ -11,7 +11,11 @@ public interface SupplierService {
 
     List<SupplierDto> getSuppliers();
 
+    SupplierDto getSupplierDtoById(Long id);
+
     Supplier addSupplier(SupplierDto supplierDto);
+
+    Supplier editSupplier(SupplierDto supplierDto, Long id);
 
     Boolean deleteSupplier(Long id);
 

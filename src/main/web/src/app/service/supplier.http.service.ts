@@ -13,15 +13,19 @@ export class SupplierHttpService {
         this.suppliersUrl = AppSettings.MAIN_ROUTE + "/suppliers";
     }
 
-    public findAll(): Observable<Supplier[]> {
+    public findAllSuppliers(): Observable<Supplier[]> {
         return this.http.get<Supplier[]>(this.suppliersUrl);
     }
 
-    public save(supplier: Supplier) {
+    public saveSupplier(supplier: Supplier) {
         return this.http.post<Supplier>(this.suppliersUrl + "/add-supplier", supplier);
     }
 
-    public delete(id: number) {
+    public editSupplier(supplier: Supplier, id: number) {
+        return this.http.put<Supplier>(this.suppliersUrl + "/edit-supplier/" + id, supplier);
+    }
+
+    public deleteSupplier(id: number) {
         return this.http.delete<boolean>(this.suppliersUrl + "/delete-supplier/" + id);
     }
 }

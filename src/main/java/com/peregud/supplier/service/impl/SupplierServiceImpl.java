@@ -25,9 +25,24 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
+    public SupplierDto getSupplierDtoById(Long id) {
+        Supplier supplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No supplier with id " + id));
+        return convertService.convertEntity(supplier, SupplierDto.class);
+    }
+
+    @Override
     public Supplier addSupplier(SupplierDto supplierDto) {
         Supplier supplier = convertService.convertEntity(supplierDto, Supplier.class);
         return supplierRepository.save(supplier);
+    }
+
+    @Override
+    public Supplier editSupplier(SupplierDto supplierDto, Long id) {
+        SupplierDto supplierExisting = this.getSupplierDtoById(id);
+        supplierDto.setId(supplierExisting.getId());
+        Supplier supplierUpdated = convertService.convertEntity(supplierDto, Supplier.class);
+        return supplierRepository.save(supplierUpdated);
     }
 
     @Override
