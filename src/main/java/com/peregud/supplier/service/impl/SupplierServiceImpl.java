@@ -29,4 +29,14 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier supplier = convertService.convertEntity(supplierDto, Supplier.class);
         return supplierRepository.save(supplier);
     }
+
+    @Override
+    public Boolean deleteSupplier(Long id) {
+        boolean isDeleted = false;
+        if (supplierRepository.existsById(id)) {
+            supplierRepository.deleteById(id);
+            isDeleted = true;
+        }
+        return isDeleted;
+    }
 }

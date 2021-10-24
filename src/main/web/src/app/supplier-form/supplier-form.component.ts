@@ -19,7 +19,9 @@ export class SupplierFormComponent {
     }
 
     public onSubmit() {
-        this.supplierService.save(this.supplier).subscribe(() => this.goToSupplierList());
+        this.supplierService.save(this.supplier)
+            .subscribe(() =>
+                this.goToSupplierList());
     }
 
     private goToSupplierList() {

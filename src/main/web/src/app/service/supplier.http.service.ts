@@ -20,4 +20,8 @@ export class SupplierHttpService {
     public save(supplier: Supplier) {
         return this.http.post<Supplier>(this.suppliersUrl + "/add-supplier", supplier);
     }
+
+    public delete(id: number) {
+        return this.http.delete<boolean>(this.suppliersUrl + "/delete-supplier/" + id);
+    }
 }

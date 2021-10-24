@@ -27,4 +27,10 @@ public class SupplierController {
         Supplier supplier = supplierService.addSupplier(supplierDto);
         return ResponseEntity.ok(supplier);
     }
+
+    @DeleteMapping("/suppliers/delete-supplier/{supplierId}")
+    public ResponseEntity<Boolean> deleteSupplier(@PathVariable(name = "supplierId") Long id) {
+        Boolean isDeleted = supplierService.deleteSupplier(id);
+        return ResponseEntity.ok(isDeleted);
+    }
 }

@@ -14,7 +14,17 @@ export class SupplierListComponent implements OnInit {
     constructor(private supplierService: SupplierHttpService) {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
+        this.loadSupplierList();
+    }
+
+    public delete(id: number) {
+        this.supplierService.delete(id)
+            .subscribe(() =>
+                this.loadSupplierList());
+    }
+
+    private loadSupplierList() {
         this.supplierService.findAll()
             .subscribe(response => {
                 this.suppliers = response;
