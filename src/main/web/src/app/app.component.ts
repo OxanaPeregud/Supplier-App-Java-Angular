@@ -14,12 +14,12 @@ export class AppComponent {
 
     constructor(private router: Router,
                 private supplierService: SupplierService) {
-        this.title = 'Supplier Application';
+        this.title = "Supplier Application";
     }
 
     public goToSupplierAddForm() {
         this.supplierService.setMode(Mode.ADD);
-        this.router.navigate(['/add-supplier']);
+        this.router.navigate(["/add-supplier"]);
     }
 
     public goToSupplierList() {

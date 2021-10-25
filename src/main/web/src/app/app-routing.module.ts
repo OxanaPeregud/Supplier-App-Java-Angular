@@ -4,8 +4,8 @@ import {SupplierListComponent} from './supplier-list/supplier-list.component';
 import {SupplierFormComponent} from './supplier-form/supplier-form.component';
 
 const routes: Routes = [
-    {path: 'suppliers', component: SupplierListComponent},
-    {path: 'add-supplier', component: SupplierFormComponent}
+    {path: "suppliers", component: SupplierListComponent},
+    {path: "add-supplier", component: SupplierFormComponent}
 ];
 
 @NgModule({

@@ -43,6 +43,6 @@ export class SupplierListComponent implements OnInit {
     private goToSupplierEditForm(supplier: Supplier, id: number) {
         this.supplierService.setSupplierInfo(supplier, id);
         this.supplierService.setMode(Mode.EDIT);
-        this.router.navigate(['/add-supplier']);
+        this.router.navigate(["/add-supplier"]);
     }
 }

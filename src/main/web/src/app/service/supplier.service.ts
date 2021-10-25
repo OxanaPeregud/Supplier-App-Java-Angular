@@ -44,6 +44,6 @@ export class SupplierService {
 
     public goToSupplierList() {
         this.setMode(Mode.READONLY);
-        this.router.navigate(['/suppliers']);
+        this.router.navigate(["/suppliers"]);
     }
 }

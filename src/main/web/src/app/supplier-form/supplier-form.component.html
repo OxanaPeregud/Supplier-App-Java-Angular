@@ -21,9 +21,11 @@
                        class="form-control"
                        id="email"
                        name="email"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                        placeholder="Enter supplier email address"
                        required #email="ngModel">
-                <div [hidden]="!email.pristine" class="alert alert-danger">Email is required</div>
+                <div *ngIf="email.untouched" class="alert alert-danger">Email is required</div>
+                <div *ngIf="email.touched" [hidden]="!email.invalid" class="alert alert-danger">Email is not valid</div>
             </div>
 
             <button type="submit" [disabled]="!supplierForm.form.valid" class="btn btn-info">Submit</button>
@@ -44,13 +46,14 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text"
+                <input type="email"
                        ngModel="{{getSupplierEmail()}}"
                        (ngModelChange)="updateSupplierEmail($event)"
                        class="form-control"
                        name="email"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                        required #email="ngModel">
-                <div [hidden]="!email.invalid" class="alert alert-danger">Email is required</div>
+                <div [hidden]="!email.invalid" class="alert alert-danger">Email is not valid</div>
             </div>
 
             <button type="submit" [disabled]="!supplierForm.form.valid" class="btn btn-info">Submit</button>
