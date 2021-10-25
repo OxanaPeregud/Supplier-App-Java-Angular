@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SupplierHttpService} from '../service/supplier.http.service';
 import {Supplier} from '../model/supplier';
@@ -27,6 +27,26 @@ export class SupplierFormComponent {
         return this.supplierService.getMode() == Mode.EDIT;
     }
 
+    public isAddMode(): boolean {
+        return this.supplierService.getMode() == Mode.ADD;
+    }
+
+    public saveSupplier(): void {
+        this.supplierHttpService.saveSupplier(this.supplier)
+            .subscribe(() =>
+                this.supplierService.goToSupplierList());
+    }
+
+    public editSupplier(): void {
+        if (this.supplier.name == null) {
+            this.supplier.name = this.supplierService.getSupplier().name;
+        }
+        if (this.supplier.email == null) {
+            this.supplier.email = this.supplierService.getSupplier().email;
+        }
+        this.supplierService.editSupplier(this.supplier);
+    }
+
     public getSupplierName(): string {
         return this.supplierService.getSupplier().name;
     }
@@ -35,17 +55,11 @@ export class SupplierFormComponent {
         return this.supplierService.getSupplier().email;
     }
 
-    public saveSupplier() {
-        this.supplierHttpService.saveSupplier(this.supplier)
-            .subscribe(() =>
-                this.goToSupplierList());
+    public updateSupplierName(name: string) {
+        this.supplier.name = name;
     }
 
-    public editSupplier() {
-        this.supplierService.editSupplier(this.supplier);
-    }
-
-    private goToSupplierList() {
-        this.router.navigate(['/suppliers']);
+    public updateSupplierEmail(email: string) {
+        this.supplier.email = email;
     }
 }

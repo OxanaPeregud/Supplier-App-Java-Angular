@@ -14,8 +14,6 @@ export class SupplierListComponent implements OnInit {
 
     public suppliers: Supplier[];
 
-    private mode: Mode;
-
     constructor(private supplierHttpService: SupplierHttpService,
                 private router: Router,
                 private supplierService: SupplierService) {
@@ -26,7 +24,7 @@ export class SupplierListComponent implements OnInit {
     }
 
     public editSupplier(supplier: Supplier, id: number) {
-        this.goToSupplierForm(supplier, id);
+        this.goToSupplierEditForm(supplier, id);
     }
 
     public deleteSupplier(id: number) {
@@ -42,8 +40,9 @@ export class SupplierListComponent implements OnInit {
             });
     }
 
-    private goToSupplierForm(supplier: Supplier, id: number) {
-        this.supplierService.setSupplierInfo(supplier, id, Mode.EDIT);
+    private goToSupplierEditForm(supplier: Supplier, id: number) {
+        this.supplierService.setSupplierInfo(supplier, id);
+        this.supplierService.setMode(Mode.EDIT);
         this.router.navigate(['/add-supplier']);
     }
 }
