@@ -28,6 +28,22 @@
                 <div *ngIf="email.touched" [hidden]="!email.invalid" class="alert alert-danger">Email is not valid</div>
             </div>
 
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text"
+                       [(ngModel)]="supplier.phone"
+                       class="form-control"
+                       id="phone"
+                       name="phone"
+                       [mask]="'+000-00-000-00-00'"
+                       [dropSpecialCharacters]="false"
+                       [clearIfNotMatch]="true"
+                       placeholder="Enter supplier phone (e.g. +375-29-XXX-XX-XX)"
+                       required #phone="ngModel">
+                <div *ngIf="phone.untouched" class="alert alert-danger">Phone is required</div>
+                <div *ngIf="phone.touched" [hidden]="!phone.invalid" class="alert alert-danger">Phone is not valid</div>
+            </div>
+
             <button type="submit" [disabled]="!supplierForm.form.valid" class="btn btn-info">Submit</button>
         </form>
 
@@ -46,7 +62,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email"
+                <input type="text"
                        ngModel="{{getSupplierEmail()}}"
                        (ngModelChange)="updateSupplierEmail($event)"
                        class="form-control"
@@ -54,6 +70,21 @@
                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                        required #email="ngModel">
                 <div [hidden]="!email.invalid" class="alert alert-danger">Email is not valid</div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text"
+                       ngModel="{{getSupplierPhone()}}"
+                       (ngModelChange)="updateSupplierPhone($event)"
+                       class="form-control"
+                       name="phone"
+                       [mask]="'+000-00-000-00-00'"
+                       [dropSpecialCharacters]="false"
+                       [clearIfNotMatch]="true"
+                       placeholder="Enter supplier phone (e.g. +375-29-XXX-XX-XX)"
+                       required #phone="ngModel">
+                <div [hidden]="!phone.invalid" class="alert alert-danger">Phone is not valid</div>
             </div>
 
             <button type="submit" [disabled]="!supplierForm.form.valid" class="btn btn-info">Submit</button>

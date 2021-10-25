@@ -44,6 +44,9 @@ export class SupplierFormComponent {
         if (this.supplier.email == null) {
             this.supplier.email = this.supplierService.getSupplier().email;
         }
+        if (this.supplier.phone == null) {
+            this.supplier.phone = this.supplierService.getSupplier().phone;
+        }
         this.supplierService.editSupplier(this.supplier);
     }
 
@@ -55,11 +58,19 @@ export class SupplierFormComponent {
         return this.supplierService.getSupplier().email;
     }
 
+    public getSupplierPhone(): string {
+        return this.supplierService.getSupplier().phone;
+    }
+
     public updateSupplierName(name: string) {
         this.supplier.name = name;
     }
 
     public updateSupplierEmail(email: string) {
         this.supplier.email = email;
+    }
+
+    public updateSupplierPhone(phone: string) {
+        this.supplier.phone = phone;
     }
 }

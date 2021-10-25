@@ -7,6 +7,7 @@ import {AppComponent} from './app.component';
 import {SupplierListComponent} from './supplier-list/supplier-list.component';
 import {SupplierFormComponent} from './supplier-form/supplier-form.component';
 import {SupplierHttpService} from './service/supplier.http.service';
+import {NgxMaskModule} from "ngx-mask";
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import {SupplierHttpService} from './service/supplier.http.service';
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        NgxMaskModule
     ],
     providers: [SupplierHttpService],
     bootstrap: [AppComponent]

@@ -6,4 +6,6 @@ export class Supplier {
 
     email: string;
 
+    phone: string;
+
 }

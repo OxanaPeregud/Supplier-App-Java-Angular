@@ -18,6 +18,7 @@ public class SupplierConverter implements Converter<Supplier, SupplierDto> {
         return builder
                 .name(supplier.getName())
                 .email(supplier.getEmail())
+                .phone(supplier.getPhone())
                 .build();
     }
 }
