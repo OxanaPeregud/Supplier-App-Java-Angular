@@ -19,9 +19,12 @@ export class SupplierService {
                 private router: Router) {
     }
 
-    public setSupplierInfo(supplier: Supplier, supplierId: number, mode: Mode): void {
+    public setSupplierInfo(supplier: Supplier, supplierId: number): void {
         this.supplier = supplier;
         this.supplierId = supplierId;
+    }
+
+    public setMode(mode: Mode): void {
         this.mode = mode;
     }
 
@@ -39,7 +42,8 @@ export class SupplierService {
                 this.goToSupplierList());
     }
 
-    private goToSupplierList() {
+    public goToSupplierList() {
+        this.setMode(Mode.READONLY);
         this.router.navigate(['/suppliers']);
     }
 }

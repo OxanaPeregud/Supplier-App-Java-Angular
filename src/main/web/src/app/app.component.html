@@ -6,9 +6,9 @@
                     <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
                     <ul class="text-center list-inline py-3">
                         <li class="list-inline-item">
-                            <a routerLink="/suppliers" class="btn btn-info">List of Suppliers</a></li>
+                            <a (click)="goToSupplierList()" class="btn btn-info active">List of Suppliers</a></li>
                         <li class="list-inline-item">
-                            <a routerLink="/add-supplier" class="btn btn-info">Add Supplier</a></li>
+                            <a (click)="goToSupplierAddForm()" class="btn btn-info active">Add Supplier</a></li>
                     </ul>
                 </div>
             </div>
