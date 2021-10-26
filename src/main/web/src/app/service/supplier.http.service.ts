@@ -17,6 +17,11 @@ export class SupplierHttpService {
         return this.http.get<Supplier[]>(this.suppliersUrl);
     }
 
+    public listSuppliers(request) {
+        const params = request;
+        return this.http.get(this.suppliersUrl + "/page", {params});
+    }
+
     public saveSupplier(supplier: Supplier) {
         return this.http.post<Supplier>(this.suppliersUrl + "/add-supplier", supplier);
     }

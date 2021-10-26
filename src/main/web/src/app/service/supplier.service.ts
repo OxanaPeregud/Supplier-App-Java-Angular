@@ -3,6 +3,7 @@ import {Supplier} from "../model/supplier";
 import {SupplierHttpService} from "./supplier.http.service";
 import {Router} from "@angular/router";
 import {Mode} from "../enum/mode.enum";
+import {List} from "../enum/list.enum";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,8 @@ export class SupplierService {
     private supplierId: number;
 
     private mode: Mode;
+
+    private list: List;
 
     constructor(private supplierHttpService: SupplierHttpService,
                 private router: Router) {
@@ -28,8 +31,16 @@ export class SupplierService {
         this.mode = mode;
     }
 
+    public setList(list: List): void {
+        this.list = list;
+    }
+
     public getMode(): Mode {
         return this.mode;
+    }
+
+    public getList(): List {
+        return this.list;
     }
 
     public getSupplier(): Supplier {
@@ -44,6 +55,13 @@ export class SupplierService {
 
     public goToSupplierList() {
         this.setMode(Mode.READONLY);
+        this.setList(List.FULL);
         this.router.navigate(["/suppliers"]);
+    }
+
+    public goToSupplierPaginatedList() {
+        this.setMode(Mode.READONLY);
+        this.setList(List.PAGINATED);
+        this.router.navigate(["/suppliers/page"]);
     }
 }

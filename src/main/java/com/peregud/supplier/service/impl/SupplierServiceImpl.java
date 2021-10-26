@@ -6,6 +6,9 @@ import com.peregud.supplier.repository.SupplierRepository;
 import com.peregud.supplier.service.ConvertService;
 import com.peregud.supplier.service.SupplierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +21,19 @@ public class SupplierServiceImpl implements SupplierService {
 
     private final ConvertService convertService;
 
+    private static final String SORT_PROPERTY = "id";
+
     @Override
     public List<SupplierDto> getSuppliers() {
         List<Supplier> supplierList = supplierRepository.findAll();
         return convertService.covertList(supplierList, Supplier.class, SupplierDto.class);
+    }
+
+    @Override
+    public Page<SupplierDto> getSuppliersPage(int page, int size) {
+        Page<Supplier> suppliers = supplierRepository.findAll(
+                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, SORT_PROPERTY)));
+        return suppliers.map(shop -> convertService.convertEntity(shop, SupplierDto.class));
     }
 
     @Override

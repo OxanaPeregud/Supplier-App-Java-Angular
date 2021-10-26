@@ -8,6 +8,8 @@ import {SupplierListComponent} from './supplier-list/supplier-list.component';
 import {SupplierFormComponent} from './supplier-form/supplier-form.component';
 import {SupplierHttpService} from './service/supplier.http.service';
 import {NgxMaskModule} from "ngx-mask";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
     declarations: [
@@ -20,7 +22,9 @@ import {NgxMaskModule} from "ngx-mask";
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        NgxMaskModule
+        NgxMaskModule,
+        MatTableModule,
+        MatPaginatorModule
     ],
     providers: [SupplierHttpService],
     bootstrap: [AppComponent]

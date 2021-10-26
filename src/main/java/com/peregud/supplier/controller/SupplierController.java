@@ -4,6 +4,7 @@ import com.peregud.supplier.domain.Supplier;
 import com.peregud.supplier.dto.SupplierDto;
 import com.peregud.supplier.service.SupplierService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,13 @@ public class SupplierController {
     @GetMapping("/suppliers")
     public ResponseEntity<List<SupplierDto>> getSuppliers() {
         List<SupplierDto> supplierDtoList = supplierService.getSuppliers();
+        return ResponseEntity.ok(supplierDtoList);
+    }
+
+    @GetMapping("/suppliers/page")
+    public ResponseEntity<Page<SupplierDto>> getSuppliersPage(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                              @RequestParam(name = "size", defaultValue = "10") int size) {
+        Page<SupplierDto> supplierDtoList = supplierService.getSuppliersPage(page, size);
         return ResponseEntity.ok(supplierDtoList);
     }
 

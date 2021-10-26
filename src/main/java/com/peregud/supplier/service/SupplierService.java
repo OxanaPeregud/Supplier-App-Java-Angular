@@ -2,6 +2,7 @@ package com.peregud.supplier.service;
 
 import com.peregud.supplier.domain.Supplier;
 import com.peregud.supplier.dto.SupplierDto;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
 public interface SupplierService {
 
     List<SupplierDto> getSuppliers();
+
+    Page<SupplierDto> getSuppliersPage(int page, int size);
 
     SupplierDto getSupplierDtoById(Long id);
 
