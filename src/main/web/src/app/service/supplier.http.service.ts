@@ -17,7 +17,7 @@ export class SupplierHttpService {
         return this.http.get<Supplier[]>(this.suppliersUrl);
     }
 
-    public listSuppliers(request) {
+    public paginatedListSuppliers(request) {
         const params = request;
         return this.http.get(this.suppliersUrl + "/page", {params});
     }

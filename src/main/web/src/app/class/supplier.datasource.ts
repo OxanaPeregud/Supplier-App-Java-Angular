@@ -28,9 +28,9 @@ export class SupplierDataSource implements DataSource<Supplier> {
         this.countSubject.complete();
     }
 
-    public loadSuppliers(pageNumber = 0, pageSize = 10) {
+    public loadSuppliers(pageNumber: number, pageSize: number) {
         this.loadingSubject.next(true);
-        this.supplierService.listSuppliers({page: pageNumber, size: pageSize})
+        this.supplierService.paginatedListSuppliers({page: pageNumber, size: pageSize})
             .pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false))

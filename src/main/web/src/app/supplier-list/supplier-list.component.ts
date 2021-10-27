@@ -7,7 +7,6 @@ import {Mode} from "../enum/mode.enum";
 import {SupplierDataSource} from "../class/supplier.datasource";
 import {MatPaginator} from "@angular/material/paginator";
 import {tap} from "rxjs/operators";
-import {List} from "../enum/list.enum";
 
 @Component({
     selector: 'app-supplier-list',
@@ -18,11 +17,17 @@ export class SupplierListComponent implements OnInit {
 
     public suppliers: Supplier[];
 
-    public displayedColumns = ['id', 'name', 'email', 'phone'];
+    public displayedColumns = ['id', 'name', 'email', 'phone', 'delete', 'edit'];
 
     public supplierDatasource: SupplierDataSource;
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+    public pageNumber = 0;
+
+    public pageSize = 10;
+
+    public showFirstLastButtons = true;
+
+    @ViewChild(MatPaginator) private paginator: MatPaginator;
 
     constructor(private supplierHttpService: SupplierHttpService,
                 private router: Router,
@@ -30,9 +35,8 @@ export class SupplierListComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.loadSupplierList();
         this.supplierDatasource = new SupplierDataSource(this.supplierHttpService);
-        this.supplierDatasource.loadSuppliers();
+        this.supplierDatasource.loadSuppliers(this.pageNumber, this.pageSize);
     }
 
     public ngAfterViewInit() {
@@ -61,15 +65,7 @@ export class SupplierListComponent implements OnInit {
     public deleteSupplier(id: number) {
         this.supplierHttpService.deleteSupplier(id)
             .subscribe(() =>
-                this.loadSupplierList());
-    }
-
-    public isFullList(): boolean {
-        return this.supplierService.getList() == List.FULL;
-    }
-
-    public isPaginatedList(): boolean {
-        return this.supplierService.getList() == List.PAGINATED;
+                this.supplierDatasource.loadSuppliers(this.pageNumber, this.pageSize));
     }
 
     private loadSupplierList() {

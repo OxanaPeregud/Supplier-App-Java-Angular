@@ -25,8 +25,4 @@ export class AppComponent {
     public goToSupplierList() {
         this.supplierService.goToSupplierList();
     }
-
-    public goToSupplierPaginatedList() {
-        this.supplierService.goToSupplierPaginatedList();
-    }
 }
