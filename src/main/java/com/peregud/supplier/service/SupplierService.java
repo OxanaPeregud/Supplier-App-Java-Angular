@@ -12,7 +12,7 @@ public interface SupplierService {
 
     List<SupplierDto> getSuppliers();
 
-    Page<SupplierDto> getSuppliersPage(int page, int size);
+    Page<SupplierDto> getSuppliersPage(int page, int size, String sortOrder, String sortProperty);
 
     SupplierDto getSupplierDtoById(Long id);
 

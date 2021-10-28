@@ -7,6 +7,8 @@ import {Mode} from "../enum/mode.enum";
 import {SupplierDataSource} from "../class/supplier.datasource";
 import {MatPaginator} from "@angular/material/paginator";
 import {tap} from "rxjs/operators";
+import {MatSort} from "@angular/material/sort";
+import {merge} from "rxjs";
 
 @Component({
     selector: 'app-supplier-list',
@@ -17,17 +19,23 @@ export class SupplierListComponent implements OnInit {
 
     public suppliers: Supplier[];
 
-    public displayedColumns = ['id', 'name', 'email', 'phone', 'delete', 'edit'];
+    public displayedColumns = ['id', 'name', 'email', 'phone', 'edit', 'delete'];
 
-    public supplierDatasource: SupplierDataSource;
+    public dataSource: SupplierDataSource;
 
-    public pageNumber = 0;
+    public pageNumber: number = 0;
 
-    public pageSize = 10;
+    public pageSize: number = 10;
 
-    public showFirstLastButtons = true;
+    public sortOrder: string;
+
+    public sortProperty: string;
+
+    public showFirstLastButtons: boolean = true;
 
     @ViewChild(MatPaginator) private paginator: MatPaginator;
+
+    @ViewChild(MatSort) private sort: MatSort;
 
     constructor(private supplierHttpService: SupplierHttpService,
                 private router: Router,
@@ -35,12 +43,19 @@ export class SupplierListComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.supplierDatasource = new SupplierDataSource(this.supplierHttpService);
-        this.supplierDatasource.loadSuppliers(this.pageNumber, this.pageSize);
+        this.setSortingOrder("ASC");
+        this.sortById();
+        this.setSortProperty(this.sortProperty);
+        this.dataSource = new SupplierDataSource(this.supplierHttpService);
+        this.dataSource.loadSuppliers(
+            this.pageNumber,
+            this.pageSize,
+            this.sortOrder,
+            this.sortProperty);
     }
 
     public ngAfterViewInit() {
-        this.supplierDatasource.counter$
+        this.dataSource.counter$
             .pipe(
                 tap((count) => {
                     this.paginator.length = count;
@@ -52,10 +67,30 @@ export class SupplierListComponent implements OnInit {
                 tap(() => this.loadSuppliers())
             )
             .subscribe();
+        this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+        merge(this.sort.sortChange, this.paginator.page)
+            .pipe(
+                tap(() => this.loadSuppliers())
+            )
+            .subscribe();
     }
 
     public loadSuppliers() {
-        this.supplierDatasource.loadSuppliers(this.paginator.pageIndex, this.paginator.pageSize);
+        if (this.sortOrder == "ASC") {
+            this.setSortingOrder("DESC");
+            this.dataSource.loadSuppliers(
+                this.paginator.pageIndex,
+                this.paginator.pageSize,
+                this.sortOrder,
+                this.sortProperty);
+        } else {
+            this.setSortingOrder("ASC");
+            this.dataSource.loadSuppliers(
+                this.paginator.pageIndex,
+                this.paginator.pageSize,
+                this.sortOrder,
+                this.sortProperty);
+        }
     }
 
     public editSupplier(supplier: Supplier, id: number) {
@@ -65,7 +100,35 @@ export class SupplierListComponent implements OnInit {
     public deleteSupplier(id: number) {
         this.supplierHttpService.deleteSupplier(id)
             .subscribe(() =>
-                this.supplierDatasource.loadSuppliers(this.pageNumber, this.pageSize));
+                this.dataSource.loadSuppliers(
+                    this.pageNumber,
+                    this.pageSize,
+                    this.sortOrder,
+                    this.sortProperty));
+    }
+
+    public setSortingOrder(sortOrder: string) {
+        this.sortOrder = sortOrder;
+    }
+
+    public getColumnName(columnName: string): number {
+        return this.displayedColumns.indexOf(columnName);
+    }
+
+    public sortById() {
+        this.sortProperty = "id";
+    }
+
+    public setSortProperty(sortProperty: string) {
+       this.sortProperty = sortProperty;
+    }
+
+    public setSort(sortProperty: string) {
+        this.sortProperty = sortProperty;
+    }
+
+    public onRowClicked(row) {
+        console.log('Row clicked: ', row);
     }
 
     private loadSupplierList() {

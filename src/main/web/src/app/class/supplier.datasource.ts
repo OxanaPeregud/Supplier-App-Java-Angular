@@ -7,11 +7,11 @@ import {SupplierListResponse} from "./supplier.list.response";
 
 export class SupplierDataSource implements DataSource<Supplier> {
 
-    private supplierSubject = new BehaviorSubject<Supplier[]>([]);
+    public supplierSubject = new BehaviorSubject<Supplier[]>([]);
 
-    private loadingSubject = new BehaviorSubject<boolean>(false);
+    public loadingSubject = new BehaviorSubject<boolean>(false);
 
-    private countSubject = new BehaviorSubject<number>(0);
+    public countSubject = new BehaviorSubject<number>(0);
 
     public counter$ = this.countSubject.asObservable();
 
@@ -28,9 +28,14 @@ export class SupplierDataSource implements DataSource<Supplier> {
         this.countSubject.complete();
     }
 
-    public loadSuppliers(pageNumber: number, pageSize: number) {
+    public loadSuppliers(pageNumber: number, pageSize: number, sortOrder: string, sortProperty: string) {
         this.loadingSubject.next(true);
-        this.supplierService.paginatedListSuppliers({page: pageNumber, size: pageSize})
+        this.supplierService.listSuppliers({
+            page: pageNumber,
+            size: pageSize,
+            sortOrder: sortOrder,
+            sortProperty: sortProperty
+        })
             .pipe(
                 catchError(() => of([])),
                 finalize(() => this.loadingSubject.next(false))

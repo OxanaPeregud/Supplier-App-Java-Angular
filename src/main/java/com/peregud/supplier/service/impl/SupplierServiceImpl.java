@@ -21,8 +21,6 @@ public class SupplierServiceImpl implements SupplierService {
 
     private final ConvertService convertService;
 
-    private static final String SORT_PROPERTY = "id";
-
     @Override
     public List<SupplierDto> getSuppliers() {
         List<Supplier> supplierList = supplierRepository.findAll();
@@ -30,9 +28,10 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Page<SupplierDto> getSuppliersPage(int page, int size) {
+    public Page<SupplierDto> getSuppliersPage(int page, int size, String sortOrder, String sortProperty) {
+
         Page<Supplier> suppliers = supplierRepository.findAll(
-                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, SORT_PROPERTY)));
+                PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(sortOrder), sortProperty)));
         return suppliers.map(shop -> convertService.convertEntity(shop, SupplierDto.class));
     }
 

@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Supplier} from '../model/supplier';
 import {Observable} from 'rxjs';
 import {AppSettings} from "../app-settings";
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class SupplierHttpService {
@@ -17,7 +18,7 @@ export class SupplierHttpService {
         return this.http.get<Supplier[]>(this.suppliersUrl);
     }
 
-    public paginatedListSuppliers(request) {
+    public listSuppliers(request) {
         const params = request;
         return this.http.get(this.suppliersUrl + "/page", {params});
     }

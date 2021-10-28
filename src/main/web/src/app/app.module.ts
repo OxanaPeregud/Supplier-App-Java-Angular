@@ -10,6 +10,8 @@ import {SupplierHttpService} from './service/supplier.http.service';
 import {NgxMaskModule} from "ngx-mask";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -24,7 +26,9 @@ import {MatPaginatorModule} from "@angular/material/paginator";
         FormsModule,
         NgxMaskModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatSortModule,
+        BrowserAnimationsModule
     ],
     providers: [SupplierHttpService],
     bootstrap: [AppComponent]
