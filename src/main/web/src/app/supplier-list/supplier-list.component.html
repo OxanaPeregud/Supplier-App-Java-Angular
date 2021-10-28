@@ -4,28 +4,28 @@
 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header
-                (click)="setSortProperty(displayedColumns[getColumnName('id')])"> Id
+                (click)="setSortingProperty('id')"> Id
             </th>
             <td mat-cell *matCellDef="let supplier"> {{supplier.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header
-                (click)="setSortProperty(displayedColumns[getColumnName('name')])"> Name
+                (click)="setSortingProperty('name')"> Name
             </th>
             <td mat-cell *matCellDef="let supplier"> {{supplier.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef mat-sort-header
-                (click)="setSortProperty(displayedColumns[getColumnName('email')])"> Email
+                (click)="setSortingProperty('email')"> Email
             </th>
             <td mat-cell *matCellDef="let supplier"> {{supplier.email}} </td>
         </ng-container>
 
         <ng-container matColumnDef="phone">
             <th mat-header-cell *matHeaderCellDef mat-sort-header
-                (click)="setSortProperty(displayedColumns[getColumnName('phone')])"> Phone
+                (click)="setSortingProperty('phone')"> Phone
             </th>
             <td mat-cell *matCellDef="let supplier"> {{supplier.phone}} </td>
         </ng-container>

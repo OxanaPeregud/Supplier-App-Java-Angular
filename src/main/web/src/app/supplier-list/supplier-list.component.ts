@@ -45,7 +45,6 @@ export class SupplierListComponent implements OnInit {
     public ngOnInit() {
         this.setSortingOrder("ASC");
         this.sortById();
-        this.setSortProperty(this.sortProperty);
         this.dataSource = new SupplierDataSource(this.supplierHttpService);
         this.dataSource.loadSuppliers(
             this.pageNumber,
@@ -75,24 +74,6 @@ export class SupplierListComponent implements OnInit {
             .subscribe();
     }
 
-    public loadSuppliers() {
-        if (this.sortOrder == "ASC") {
-            this.setSortingOrder("DESC");
-            this.dataSource.loadSuppliers(
-                this.paginator.pageIndex,
-                this.paginator.pageSize,
-                this.sortOrder,
-                this.sortProperty);
-        } else {
-            this.setSortingOrder("ASC");
-            this.dataSource.loadSuppliers(
-                this.paginator.pageIndex,
-                this.paginator.pageSize,
-                this.sortOrder,
-                this.sortProperty);
-        }
-    }
-
     public editSupplier(supplier: Supplier, id: number) {
         this.goToSupplierEditForm(supplier, id);
     }
@@ -111,24 +92,34 @@ export class SupplierListComponent implements OnInit {
         this.sortOrder = sortOrder;
     }
 
-    public getColumnName(columnName: string): number {
-        return this.displayedColumns.indexOf(columnName);
-    }
-
     public sortById() {
         this.sortProperty = "id";
     }
 
-    public setSortProperty(sortProperty: string) {
+    public setSortingProperty(sortProperty: string) {
        this.sortProperty = sortProperty;
-    }
-
-    public setSort(sortProperty: string) {
-        this.sortProperty = sortProperty;
     }
 
     public onRowClicked(row) {
         console.log('Row clicked: ', row);
+    }
+
+    private loadSuppliers() {
+        if (this.sortOrder == "ASC") {
+            this.setSortingOrder("DESC");
+            this.dataSource.loadSuppliers(
+                this.paginator.pageIndex,
+                this.paginator.pageSize,
+                this.sortOrder,
+                this.sortProperty);
+        } else {
+            this.setSortingOrder("ASC");
+            this.dataSource.loadSuppliers(
+                this.paginator.pageIndex,
+                this.paginator.pageSize,
+                this.sortOrder,
+                this.sortProperty);
+        }
     }
 
     private loadSupplierList() {
