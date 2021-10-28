@@ -29,10 +29,10 @@ export class SupplierDataSource implements DataSource<Supplier> {
     }
 
     public loadSuppliers(pageNumber: number, pageSize: number, sortOrder: string, sortProperty: string) {
-        if (sortOrder == null) {
+        if (sortOrder == null || sortOrder == "") {
             sortOrder = "asc";
         }
-        if (sortProperty == null) {
+        if (sortProperty == null || sortProperty == "") {
             sortProperty = "id";
         }
         this.loadingSubject.next(true);

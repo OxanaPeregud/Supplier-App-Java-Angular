@@ -27,8 +27,8 @@ public class SupplierController {
     @GetMapping("/suppliers/page")
     public ResponseEntity<Page<SupplierDto>> getSuppliersPage(@RequestParam(defaultValue = "0") int page,
                                                               @RequestParam(defaultValue = "10") int size,
-                                                              @RequestParam Sort.Direction sortOrder,
-                                                              @RequestParam String sortProperty) {
+                                                              @RequestParam(defaultValue = "ASC") Sort.Direction sortOrder,
+                                                              @RequestParam(defaultValue = "id") String sortProperty) {
         Page<SupplierDto> supplierDtoList = supplierService.getSuppliersPage(page, size, sortOrder, sortProperty);
         return ResponseEntity.ok(supplierDtoList);
     }
