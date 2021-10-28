@@ -28,10 +28,10 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public Page<SupplierDto> getSuppliersPage(int page, int size, String sortOrder, String sortProperty) {
+    public Page<SupplierDto> getSuppliersPage(int page, int size, Sort.Direction sortOrder, String sortProperty) {
 
         Page<Supplier> suppliers = supplierRepository.findAll(
-                PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(sortOrder), sortProperty)));
+                PageRequest.of(page, size, Sort.by(sortOrder, sortProperty)));
         return suppliers.map(shop -> convertService.convertEntity(shop, SupplierDto.class));
     }
 

@@ -5,6 +5,7 @@ import com.peregud.supplier.dto.SupplierDto;
 import com.peregud.supplier.service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class SupplierController {
     @GetMapping("/suppliers/page")
     public ResponseEntity<Page<SupplierDto>> getSuppliersPage(@RequestParam(defaultValue = "0") int page,
                                                               @RequestParam(defaultValue = "10") int size,
-                                                              @RequestParam String sortOrder,
+                                                              @RequestParam Sort.Direction sortOrder,
                                                               @RequestParam String sortProperty) {
         Page<SupplierDto> supplierDtoList = supplierService.getSuppliersPage(page, size, sortOrder, sortProperty);
         return ResponseEntity.ok(supplierDtoList);

@@ -29,11 +29,17 @@ export class SupplierDataSource implements DataSource<Supplier> {
     }
 
     public loadSuppliers(pageNumber: number, pageSize: number, sortOrder: string, sortProperty: string) {
+        if (sortOrder == null) {
+            sortOrder = "asc";
+        }
+        if (sortProperty == null) {
+            sortProperty = "id";
+        }
         this.loadingSubject.next(true);
         this.supplierService.listSuppliers({
             page: pageNumber,
             size: pageSize,
-            sortOrder: sortOrder,
+            sortOrder: sortOrder.toUpperCase(),
             sortProperty: sortProperty
         })
             .pipe(
