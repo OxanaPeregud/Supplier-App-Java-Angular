@@ -1,6 +1,51 @@
 <div class="card my-5">
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortDisableClear>
+    <form (ngSubmit)="loadSuppliersSearchResult()">
+        <div class="form-group">
+            <h4>Search supplier by name</h4>
+            <input type="text"
+                   [(ngModel)]="supplierName"
+                   class="form-control"
+                   id="name"
+                   name="name"
+                   placeholder="Enter supplier name">
+        </div>
+        <button type="submit" class="btn btn-info">Search</button>
+    </form>
+
+    <div class="card-body" *ngIf="isSearchMode()">
+
+        <h2>Search result</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let supplier of searchedSuppliers">
+                <td>{{supplier.id}}</td>
+                <td>{{supplier.name}}</td>
+                <td>{{supplier.email}}</td>
+                <td>{{supplier.phone}}</td>
+                <td>
+                    <button type="button" (click)="editSupplier(supplier, supplier.id)">&#9745;</button>
+                </td>
+                <td>
+                    <button type="button" (click)="deleteSupplier(supplier.id)">&#9746;</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort matSortDisableClear
+           *ngIf="!isSearchMode()">
 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Id</th>
@@ -41,10 +86,10 @@
 
     </table>
 
-    <mat-paginator
-        [pageSize]="pageSize"
-        [pageIndex]="pageNumber"
-        [showFirstLastButtons]="showFirstLastButtons">
+    <mat-paginator *ngIf="!isSearchMode()"
+                   [pageSize]="pageSize"
+                   [pageIndex]="pageNumber"
+                   [showFirstLastButtons]="showFirstLastButtons">
     </mat-paginator>
 
 </div>

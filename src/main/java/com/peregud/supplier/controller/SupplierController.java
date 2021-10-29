@@ -51,4 +51,10 @@ public class SupplierController {
         Boolean isDeleted = supplierService.deleteSupplier(id);
         return ResponseEntity.ok(isDeleted);
     }
+
+    @GetMapping("/suppliers/search-result")
+    public ResponseEntity<List<SupplierDto>> getSuppliersSearchResult(@RequestParam String name) {
+        List<SupplierDto> supplierDtoList = supplierService.findSuppliersByName(name);
+        return ResponseEntity.ok(supplierDtoList);
+    }
 }

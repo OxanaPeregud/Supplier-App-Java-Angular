@@ -3,7 +3,6 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Supplier} from '../model/supplier';
 import {Observable} from 'rxjs';
 import {AppSettings} from "../app-settings";
-import {map} from "rxjs/operators";
 
 @Injectable()
 export class SupplierHttpService {
@@ -33,5 +32,11 @@ export class SupplierHttpService {
 
     public deleteSupplier(id: number) {
         return this.http.delete<boolean>(this.suppliersUrl + "/delete-supplier/" + id);
+    }
+
+    public getSuppliersSearchResult(name: string): Observable<Supplier[]> {
+        const params = new HttpParams()
+            .set("name", name)
+        return this.http.get<Supplier[]>(this.suppliersUrl + "/search-result", {params});
     }
 }

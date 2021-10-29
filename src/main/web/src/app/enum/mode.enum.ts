@@ -1,5 +1,6 @@
 export enum Mode {
     ADD,
     EDIT,
-    READONLY
+    READONLY,
+    SEARCH
 }

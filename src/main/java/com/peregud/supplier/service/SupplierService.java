@@ -23,4 +23,6 @@ public interface SupplierService {
 
     Boolean deleteSupplier(Long id);
 
+    List<SupplierDto> findSuppliersByName(String name);
+
 }

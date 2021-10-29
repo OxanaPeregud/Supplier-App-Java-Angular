@@ -29,7 +29,6 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public Page<SupplierDto> getSuppliersPage(int page, int size, Sort.Direction sortOrder, String sortProperty) {
-
         Page<Supplier> suppliers = supplierRepository.findAll(
                 PageRequest.of(page, size, Sort.by(sortOrder, sortProperty)));
         return suppliers.map(shop -> convertService.convertEntity(shop, SupplierDto.class));
@@ -64,5 +63,11 @@ public class SupplierServiceImpl implements SupplierService {
             isDeleted = true;
         }
         return isDeleted;
+    }
+
+    @Override
+    public List<SupplierDto> findSuppliersByName(String name) {
+        List<Supplier> supplierList = supplierRepository.findAllByNameContaining(name);
+        return convertService.covertList(supplierList, Supplier.class, SupplierDto.class);
     }
 }

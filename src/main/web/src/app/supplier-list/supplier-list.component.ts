@@ -19,6 +19,10 @@ export class SupplierListComponent implements OnInit {
 
     public suppliers: Supplier[];
 
+    public searchedSuppliers: Supplier[];
+
+    public supplierName: string;
+
     public displayedColumns = ['id', 'name', 'email', 'phone', 'edit', 'delete'];
 
     public dataSource: SupplierDataSource;
@@ -91,6 +95,18 @@ export class SupplierListComponent implements OnInit {
 
     public onRowClicked(row) {
         console.log('Row clicked: ', row);
+    }
+
+    public loadSuppliersSearchResult() {
+        this.supplierService.setMode(Mode.SEARCH);
+        this.supplierHttpService.getSuppliersSearchResult(this.supplierName)
+            .subscribe(response => {
+                this.searchedSuppliers = response;
+            });
+    }
+
+    public isSearchMode(): boolean {
+        return this.supplierService.getMode() == Mode.SEARCH;
     }
 
     private loadSuppliers() {
