@@ -1,21 +1,20 @@
 package com.peregud.supplier.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
+@Entity
 @Table(name = "supplier")
 public class Supplier implements Serializable {
 
@@ -33,4 +32,16 @@ public class Supplier implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private Set<Goods> goods = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Supplier supplier = (Supplier) o;
+        return id.equals(supplier.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

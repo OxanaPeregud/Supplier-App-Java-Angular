@@ -4,12 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
-@Entity
-@Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Getter
+@Setter
+@Entity
 @Table(name = "goods")
 public class Goods implements Serializable {
 
@@ -27,4 +29,16 @@ public class Goods implements Serializable {
     @ToString.Exclude
     private Supplier supplier;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Goods goods = (Goods) o;
+        return id.equals(goods.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

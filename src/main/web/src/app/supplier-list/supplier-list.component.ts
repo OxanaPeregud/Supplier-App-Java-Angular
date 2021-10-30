@@ -93,6 +93,7 @@ export class SupplierListComponent implements OnInit {
     }
 
     public deleteSupplier(id: number) {
+        this.supplierService.setMode(Mode.DELETE);
         this.supplierHttpService.deleteSupplier(id)
             .subscribe(() =>
                 this.dataSource.loadSuppliers(
@@ -103,14 +104,16 @@ export class SupplierListComponent implements OnInit {
     }
 
     public onRowClicked(row) {
-        this.activeRowId = row.id;
-        this.supplierService.setSupplierId(this.activeRowId);
-        this.getSuppliersGoods();
-        this.dialog.open(SuppliersGoodsDialogComponent, {
-            width: '80%',
-            closeOnNavigation: true,
-            data: {name: this.goodsName, pricePerUnit: this.pricePerUnit}
-        });
+        if (this.supplierService.getMode() != Mode.DELETE) {
+            this.activeRowId = row.id;
+            this.supplierService.setSupplierId(this.activeRowId);
+            this.getSuppliersGoods();
+            this.dialog.open(SuppliersGoodsDialogComponent, {
+                width: '80%',
+                closeOnNavigation: true,
+                data: {name: this.goodsName, pricePerUnit: this.pricePerUnit}
+            });
+        }
     }
 
     public loadSuppliersSearchResult() {
