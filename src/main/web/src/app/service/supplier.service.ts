@@ -43,7 +43,9 @@ export class SupplierService {
     }
 
     public goToSupplierList() {
-        window.location.reload();
+        if (this.mode == Mode.SEARCH) {
+            window.location.reload();
+        }
         this.setMode(Mode.READONLY);
         this.router.navigate(["/suppliers"]);
     }
