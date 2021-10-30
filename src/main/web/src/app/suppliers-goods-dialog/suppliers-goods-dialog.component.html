@@ -1,0 +1,22 @@
+<div class="card-body">
+
+    <h2>Suppliers Goods</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price Per Unit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let goods of getSuppliersGoods()">
+            <td>{{goods.name}}</td>
+            <td>{{goods.pricePerUnit}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="closeClick()">Close</button>
+</div>

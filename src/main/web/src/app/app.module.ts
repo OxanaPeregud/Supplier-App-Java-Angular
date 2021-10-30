@@ -13,12 +13,16 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatInputModule} from "@angular/material/input";
+import { SuppliersGoodsDialogComponent } from './suppliers-goods-dialog/suppliers-goods-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
     declarations: [
         AppComponent,
         SupplierListComponent,
-        SupplierFormComponent
+        SupplierFormComponent,
+        SuppliersGoodsDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -30,8 +34,11 @@ import {MatInputModule} from "@angular/material/input";
         MatPaginatorModule,
         MatSortModule,
         BrowserAnimationsModule,
-        MatInputModule
+        MatInputModule,
+        MatDialogModule,
+        MatButtonModule
     ],
+    entryComponents: [SuppliersGoodsDialogComponent],
     providers: [SupplierHttpService],
     bootstrap: [AppComponent]
 })

@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Supplier} from '../model/supplier';
 import {Observable} from 'rxjs';
 import {AppSettings} from "../app-settings";
+import {Goods} from "../model/goods";
 
 @Injectable()
 export class SupplierHttpService {
@@ -38,5 +39,9 @@ export class SupplierHttpService {
         const params = new HttpParams()
             .set("name", name)
         return this.http.get<Supplier[]>(this.suppliersUrl + "/search-result", {params});
+    }
+
+    public displaySuppliersGoods(id: number): Observable<Goods[]> {
+        return this.http.get<Goods[]>(this.suppliersUrl + "/goods/" + id);
     }
 }

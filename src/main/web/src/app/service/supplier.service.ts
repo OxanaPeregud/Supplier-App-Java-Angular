@@ -3,6 +3,7 @@ import {Supplier} from "../model/supplier";
 import {SupplierHttpService} from "./supplier.http.service";
 import {Router} from "@angular/router";
 import {Mode} from "../enum/mode.enum";
+import {Goods} from "../model/goods";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,8 @@ export class SupplierService {
     private supplierId: number;
 
     private mode: Mode;
+
+    private data: Goods[];
 
     constructor(private supplierHttpService: SupplierHttpService,
                 private router: Router) {
@@ -30,6 +33,22 @@ export class SupplierService {
 
     public getMode(): Mode {
         return this.mode;
+    }
+
+    public setSupplierId(id: number): void {
+        this.supplierId = id;
+    }
+
+    public getSupplierId(): number {
+        return this.supplierId;
+    }
+
+    public setGoods(goods: Goods[]): void {
+        this.data = goods;
+    }
+
+    public getGoods(): Goods[] {
+        return this.data;
     }
 
     public getSupplier(): Supplier {

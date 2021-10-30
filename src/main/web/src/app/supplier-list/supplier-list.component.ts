@@ -9,6 +9,8 @@ import {MatPaginator} from "@angular/material/paginator";
 import {tap} from "rxjs/operators";
 import {MatSort} from "@angular/material/sort";
 import {merge} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {SuppliersGoodsDialogComponent} from "../suppliers-goods-dialog/suppliers-goods-dialog.component";
 
 @Component({
     selector: 'app-supplier-list',
@@ -31,11 +33,17 @@ export class SupplierListComponent implements OnInit {
 
     public pageSize: number = 10;
 
-    public sortOrder: string;
-
-    public sortProperty: string;
-
     public showFirstLastButtons: boolean = true;
+
+    private sortOrder: string;
+
+    private sortProperty: string;
+
+    private activeRowId: number;
+
+    private goodsName: string;
+
+    private pricePerUnit: number;
 
     @ViewChild(MatPaginator) private paginator: MatPaginator;
 
@@ -43,7 +51,8 @@ export class SupplierListComponent implements OnInit {
 
     constructor(private supplierHttpService: SupplierHttpService,
                 private router: Router,
-                private supplierService: SupplierService) {
+                private supplierService: SupplierService,
+                public dialog: MatDialog) {
     }
 
     public ngOnInit() {
@@ -94,7 +103,14 @@ export class SupplierListComponent implements OnInit {
     }
 
     public onRowClicked(row) {
-        console.log('Row clicked: ', row);
+        this.activeRowId = row.id;
+        this.supplierService.setSupplierId(this.activeRowId);
+        this.getSuppliersGoods();
+        this.dialog.open(SuppliersGoodsDialogComponent, {
+            width: '80%',
+            closeOnNavigation: true,
+            data: {name: this.goodsName, pricePerUnit: this.pricePerUnit}
+        });
     }
 
     public loadSuppliersSearchResult() {
@@ -128,5 +144,12 @@ export class SupplierListComponent implements OnInit {
         this.supplierService.setSupplierInfo(supplier, id);
         this.supplierService.setMode(Mode.EDIT);
         this.router.navigate(["/add-supplier"]);
+    }
+
+    private getSuppliersGoods() {
+        this.supplierHttpService.displaySuppliersGoods(this.supplierService.getSupplierId())
+            .subscribe(response => {
+                this.supplierService.setGoods(response);
+            });
     }
 }
