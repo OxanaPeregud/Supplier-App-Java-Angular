@@ -3,5 +3,6 @@ export enum Mode {
     EDIT,
     READONLY,
     SEARCH,
-    DELETE
+    DELETE,
+    NULL
 }

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {Goods} from "../model/goods";
 import {SupplierService} from "../service/supplier.service";
+import {Mode} from "../enum/mode.enum";
 
 @Component({
     selector: 'app-suppliers-goods-dialog',
@@ -21,5 +22,9 @@ export class SuppliersGoodsDialogComponent {
 
     public getSuppliersGoods(): Goods[] {
         return this.supplierService.getGoods();
+    }
+
+    public isNullMode(): boolean {
+        return this.supplierService.getMode() == Mode.NULL;
     }
 }

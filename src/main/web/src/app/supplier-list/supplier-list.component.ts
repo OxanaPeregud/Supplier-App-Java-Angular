@@ -101,6 +101,7 @@ export class SupplierListComponent implements OnInit {
                     this.pageSize,
                     this.sortOrder,
                     this.sortProperty));
+        this.supplierService.reload();
     }
 
     public onRowClicked(row) {
@@ -152,7 +153,12 @@ export class SupplierListComponent implements OnInit {
     private getSuppliersGoods() {
         this.supplierHttpService.displaySuppliersGoods(this.supplierService.getSupplierId())
             .subscribe(response => {
-                this.supplierService.setGoods(response);
+                if (response[0].name == null) {
+                    this.supplierService.setMode(Mode.NULL);
+                } else {
+                    this.supplierService.setMode(Mode.READONLY);
+                    this.supplierService.setGoods(response);
+                }
             });
     }
 }

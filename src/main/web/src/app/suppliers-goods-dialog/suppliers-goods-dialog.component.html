@@ -1,6 +1,6 @@
-<div class="card-body">
+<div class="card-body" *ngIf="!isNullMode()">
 
-    <h2>Suppliers Goods</h2>
+    <h3>Suppliers Goods</h3>
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
         <tr>
@@ -15,6 +15,10 @@
         </tr>
         </tbody>
     </table>
+</div>
+
+<div class="card-body" *ngIf="isNullMode()">
+    <h3>There are no goods from this supplier</h3>
 </div>
 
 <div mat-dialog-actions>
