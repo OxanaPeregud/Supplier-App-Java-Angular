@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -25,5 +28,9 @@ public class Supplier implements Serializable {
     private String email;
 
     private String phone;
+
+    @OneToMany(mappedBy = "supplier")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    private Set<Goods> goods = new HashSet<>();
 
 }

@@ -1,6 +1,8 @@
 package com.peregud.supplier.service.impl;
 
 import com.peregud.supplier.domain.Supplier;
+import com.peregud.supplier.dto.GoodsDto;
+import com.peregud.supplier.dto.GoodsInfo;
 import com.peregud.supplier.dto.SupplierDto;
 import com.peregud.supplier.repository.SupplierRepository;
 import com.peregud.supplier.service.ConvertService;
@@ -69,5 +71,11 @@ public class SupplierServiceImpl implements SupplierService {
     public List<SupplierDto> findSuppliersByName(String name) {
         List<Supplier> supplierList = supplierRepository.findAllByNameContaining(name);
         return convertService.covertList(supplierList, Supplier.class, SupplierDto.class);
+    }
+
+    @Override
+    public List<GoodsDto> displaySuppliersGoods(Long id) {
+        List<GoodsInfo> goodsDtoList = supplierRepository.suppliersGoods(id);
+        return convertService.covertList(goodsDtoList, GoodsInfo.class, GoodsDto.class);
     }
 }

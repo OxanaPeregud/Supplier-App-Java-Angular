@@ -1,5 +1,6 @@
 package com.peregud.supplier.config;
 
+import com.peregud.supplier.converter.GoodsInfoConverter;
 import com.peregud.supplier.converter.SupplierConverter;
 import com.peregud.supplier.converter.SupplierDtoConverter;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,7 @@ public class ConverterConfig implements WebMvcConfigurer {
         DefaultConversionService service = new DefaultConversionService();
         service.addConverter(new SupplierConverter());
         service.addConverter(new SupplierDtoConverter());
+        service.addConverter(new GoodsInfoConverter());
         return service;
     }
 }

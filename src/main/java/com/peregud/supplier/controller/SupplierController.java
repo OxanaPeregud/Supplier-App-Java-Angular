@@ -1,6 +1,7 @@
 package com.peregud.supplier.controller;
 
 import com.peregud.supplier.domain.Supplier;
+import com.peregud.supplier.dto.GoodsDto;
 import com.peregud.supplier.dto.SupplierDto;
 import com.peregud.supplier.service.SupplierService;
 import lombok.RequiredArgsConstructor;
@@ -56,5 +57,11 @@ public class SupplierController {
     public ResponseEntity<List<SupplierDto>> getSuppliersSearchResult(@RequestParam String name) {
         List<SupplierDto> supplierDtoList = supplierService.findSuppliersByName(name);
         return ResponseEntity.ok(supplierDtoList);
+    }
+
+    @GetMapping("/suppliers/goods/{supplierId}")
+    public ResponseEntity<List<GoodsDto>> displaySuppliersGoods(@PathVariable(name = "supplierId") Long id) {
+        List<GoodsDto> goodsDtoList = supplierService.displaySuppliersGoods(id);
+        return ResponseEntity.ok(goodsDtoList);
     }
 }

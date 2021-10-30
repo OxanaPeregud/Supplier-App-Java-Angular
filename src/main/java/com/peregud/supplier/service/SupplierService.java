@@ -1,6 +1,7 @@
 package com.peregud.supplier.service;
 
 import com.peregud.supplier.domain.Supplier;
+import com.peregud.supplier.dto.GoodsDto;
 import com.peregud.supplier.dto.SupplierDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -24,5 +25,7 @@ public interface SupplierService {
     Boolean deleteSupplier(Long id);
 
     List<SupplierDto> findSuppliersByName(String name);
+
+    List<GoodsDto> displaySuppliersGoods(Long id);
 
 }
